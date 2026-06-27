@@ -1,4 +1,4 @@
--- [[ SUMMONER HUB UI LIBRARY - V2.8 (DARK MUSHROOM RED) ]] --
+-- [[ SUMMONER HUB UI LIBRARY - V2.9 (DARK MUSHROOM RED) ]] --
 -- [[ CREATOR: BLUE SIONZ ]] --
 
 local SummonerLib = {}
@@ -20,53 +20,49 @@ function SummonerLib:CreateWindow(Config)
     Gui.ResetOnSpawn = false
     Gui.Parent = CoreGui
 
-    -- ==================== DARK MUSHROOM RED THEME ====================
     local MainColor = Color3.fromRGB(18, 3, 3)
     local AccentColor = Color3.fromRGB(185, 25, 25)
     local SecColor = Color3.fromRGB(28, 8, 8)
     local StrokeColor = Color3.fromRGB(255, 65, 65)
     local TextColor = Color3.fromRGB(255, 245, 245)
 
-    -- [[ MAIN WINDOW - Diperkecil ]]
+    -- [[ MAIN WINDOW - Ukuran Balanced ]]
     local Main = Instance.new("Frame")
     Main.Name = "MainFrame"
-    Main.Size = UDim2.new(0, 460, 0, 340)  -- Ukuran lebih kecil
-    Main.Position = UDim2.new(0.5, -230, 0.5, -170)
+    Main.Size = UDim2.new(0, 420, 0, 310)  -- Kecil & Balanced
+    Main.Position = UDim2.new(0.5, -210, 0.5, -155)
     Main.BackgroundColor3 = MainColor
     Main.BorderSizePixel = 0
     Main.Active = true
     Main.Draggable = true
-    Main.Visible = true
+    Main.Visible = false   -- Mulai tertutup
     Main.Parent = Gui
     Instance.new("UICorner", Main).CornerRadius = UDim.new(0, 10)
 
     local MainStroke = Instance.new("UIStroke", Main)
     MainStroke.Color = StrokeColor
-    MainStroke.Thickness = 1.8
-    MainStroke.Transparency = 0.25
+    MainStroke.Thickness = 1.6
 
     -- Title Bar
     local TitleBar = Instance.new("Frame", Main)
-    TitleBar.Name = "TitleBar"
-    TitleBar.Size = UDim2.new(1, 0, 0, 45)
+    TitleBar.Size = UDim2.new(1, 0, 0, 42)
     TitleBar.BackgroundColor3 = SecColor
-    TitleBar.BorderSizePixel = 0
     Instance.new("UICorner", TitleBar).CornerRadius = UDim.new(0, 10)
 
     local Title = Instance.new("TextLabel", TitleBar)
-    Title.Size = UDim2.new(1, -60, 1, 0)
-    Title.Position = UDim2.new(0, 18, 0, 0)
-    Title.BackgroundTransparency = 1
+    Title.Size = UDim2.new(1, -50, 1, 0)
+    Title.Position = UDim2.new(0, 16, 0, 0)
     Title.Text = HubName
     Title.TextColor3 = TextColor
     Title.Font = Enum.Font.GothamBold
-    Title.TextSize = 17
+    Title.TextSize = 16
     Title.TextXAlignment = Enum.TextXAlignment.Left
+    Title.BackgroundTransparency = 1
 
     -- Minimize Button
     local MinBtn = Instance.new("TextButton", TitleBar)
-    MinBtn.Size = UDim2.new(0, 28, 0, 28)
-    MinBtn.Position = UDim2.new(1, -36, 0.5, -14)
+    MinBtn.Size = UDim2.new(0, 26, 0, 26)
+    MinBtn.Position = UDim2.new(1, -34, 0.5, -13)
     MinBtn.BackgroundColor3 = Color3.fromRGB(40, 10, 10)
     MinBtn.Text = "−"
     MinBtn.TextColor3 = TextColor
@@ -74,35 +70,21 @@ function SummonerLib:CreateWindow(Config)
     MinBtn.TextSize = 18
     Instance.new("UICorner", MinBtn).CornerRadius = UDim.new(1, 0)
 
-    local MinStroke = Instance.new("UIStroke", MinBtn)
-    MinStroke.Color = AccentColor
-    MinStroke.Thickness = 1.5
-
-    -- [[ FLOATING ICON - Kotak + Corner Sedang + Merah Pas ]]
+    -- [[ FLOATING ICON - Kecil, No Hover Enlarge, No Red Outline ]]
     local FloatingIcon = Instance.new("ImageButton")
     FloatingIcon.Name = "FloatingIcon"
-    FloatingIcon.Size = UDim2.new(0, 54, 0, 54)
-    FloatingIcon.Position = UDim2.new(0.5, -27, 0, 25)
+    FloatingIcon.Size = UDim2.new(0, 48, 0, 48)   -- Kecil
+    FloatingIcon.Position = UDim2.new(0.5, -24, 0, 20)
     FloatingIcon.BackgroundColor3 = AccentColor
-    FloatingIcon.Image = "rbxassetid://96064857767903"  -- Asset dari repo kamu
-    FloatingIcon.Visible = false
+    FloatingIcon.Image = "rbxassetid://96064857767903"
+    FloatingIcon.Visible = true   -- Muncul pertama
     FloatingIcon.Active = true
     FloatingIcon.Draggable = true
     FloatingIcon.Parent = Gui
-    Instance.new("UICorner", FloatingIcon).CornerRadius = UDim.new(0, 14)  -- Kotak, tidak terlalu lancip
+    Instance.new("UICorner", FloatingIcon).CornerRadius = UDim.new(0, 12)
 
-    local IconStroke = Instance.new("UIStroke", FloatingIcon)
-    IconStroke.Color = Color3.fromRGB(255, 255, 255)
-    IconStroke.Thickness = 2.2
-    IconStroke.Transparency = 0.25
-
-    -- Hover Effect
-    FloatingIcon.MouseEnter:Connect(function()
-        FloatingIcon.Size = UDim2.new(0, 60, 0, 60)
-    end)
-    FloatingIcon.MouseLeave:Connect(function()
-        FloatingIcon.Size = UDim2.new(0, 54, 0, 54)
-    end)
+    -- No Hover Enlarge
+    -- No Red Outline
 
     MinBtn.MouseButton1Click:Connect(function()
         Main.Visible = false
@@ -114,30 +96,23 @@ function SummonerLib:CreateWindow(Config)
         Main.Visible = true
     end)
 
-    -- Sidebar
+    -- Sidebar & Container (disesuaikan ukuran)
     local Sidebar = Instance.new("Frame", Main)
-    Sidebar.Size = UDim2.new(0, 140, 1, -50)
-    Sidebar.Position = UDim2.new(0, 0, 0, 45)
+    Sidebar.Size = UDim2.new(0, 130, 1, -48)
+    Sidebar.Position = UDim2.new(0, 0, 0, 42)
     Sidebar.BackgroundColor3 = SecColor
-    Sidebar.BorderSizePixel = 0
     Instance.new("UICorner", Sidebar).CornerRadius = UDim.new(0, 10)
 
-    local SideLayout = Instance.new("UIListLayout", Sidebar)
-    SideLayout.Padding = UDim.new(0, 6)
-    SideLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
-    SideLayout.SortOrder = Enum.SortOrder.LayoutOrder
-
-    -- Container
     local Container = Instance.new("Frame", Main)
-    Container.Size = UDim2.new(1, -150, 1, -55)
-    Container.Position = UDim2.new(0, 145, 0, 50)
+    Container.Size = UDim2.new(1, -140, 1, -52)
+    Container.Position = UDim2.new(0, 135, 0, 48)
     Container.BackgroundTransparency = 1
 
-    -- Window Object
     local WindowObj = {}
     local FirstTab = true
 
     function WindowObj:CreateTab(TabName)
+        -- ... (sama seperti sebelumnya, CreateButton dengan Toggle support)
         local Page = Instance.new("ScrollingFrame")
         Page.Size = UDim2.new(1, 0, 1, 0)
         Page.BackgroundTransparency = 1
@@ -146,33 +121,31 @@ function SummonerLib:CreateWindow(Config)
         Page.ScrollBarImageColor3 = AccentColor
         Page.CanvasSize = UDim2.new(0, 0, 0, 0)
         Page.Parent = Container
-        
+
         local Layout = Instance.new("UIListLayout", Page)
         Layout.Padding = UDim.new(0, 9)
         Layout.SortOrder = Enum.SortOrder.LayoutOrder
-        
+
         Layout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
             Page.CanvasSize = UDim2.new(0, 0, 0, Layout.AbsoluteContentSize.Y + 20)
         end)
-        
-        local Btn = Instance.new("TextButton", Sidebar)
-        Btn.Size = UDim2.new(0.92, 0, 0, 38)
-        Btn.BackgroundColor3 = FirstTab and AccentColor or Color3.fromRGB(35, 10, 10)
-        Btn.Text = "   " .. TabName
-        Btn.TextColor3 = TextColor
-        Btn.Font = Enum.Font.GothamSemibold
-        Btn.TextSize = 13
-        Btn.TextXAlignment = Enum.TextXAlignment.Left
-        Instance.new("UICorner", Btn).CornerRadius = UDim.new(0, 7)
-        
-        local BtnStroke = Instance.new("UIStroke", Btn)
+
+        local TabBtn = Instance.new("TextButton", Sidebar)
+        TabBtn.Size = UDim2.new(0.92, 0, 0, 36)
+        TabBtn.BackgroundColor3 = FirstTab and AccentColor or Color3.fromRGB(35, 10, 10)
+        TabBtn.Text = "   " .. TabName
+        TabBtn.TextColor3 = TextColor
+        TabBtn.Font = Enum.Font.GothamSemibold
+        TabBtn.TextSize = 13
+        TabBtn.TextXAlignment = Enum.TextXAlignment.Left
+        Instance.new("UICorner", TabBtn).CornerRadius = UDim.new(0, 7)
+
+        local BtnStroke = Instance.new("UIStroke", TabBtn)
         BtnStroke.Color = FirstTab and Color3.fromRGB(255, 110, 110) or AccentColor
         BtnStroke.Thickness = 1.4
 
-        Btn.MouseButton1Click:Connect(function()
-            for _, p in pairs(Container:GetChildren()) do
-                if p:IsA("ScrollingFrame") then p.Visible = false end
-            end
+        TabBtn.MouseButton1Click:Connect(function()
+            for _, p in pairs(Container:GetChildren()) do if p:IsA("ScrollingFrame") then p.Visible = false end end
             for _, b in pairs(Sidebar:GetChildren()) do
                 if b:IsA("TextButton") then 
                     b.BackgroundColor3 = Color3.fromRGB(35, 10, 10)
@@ -180,8 +153,8 @@ function SummonerLib:CreateWindow(Config)
                 end 
             end
             Page.Visible = true
-            Btn.BackgroundColor3 = AccentColor
-            Btn.UIStroke.Color = Color3.fromRGB(255, 110, 110)
+            TabBtn.BackgroundColor3 = AccentColor
+            TabBtn.UIStroke.Color = Color3.fromRGB(255, 110, 110)
         end)
 
         FirstTab = false
@@ -190,26 +163,30 @@ function SummonerLib:CreateWindow(Config)
         function TabObj:CreateButton(Config)
             local text = Config.Name or "Button"
             local callback = Config.Callback or function() end
+            local isToggle = Config.Toggle or false
+            local state = Config.Default or false
 
-            local BtnElm = Instance.new("TextButton", Page)
-            BtnElm.Size = UDim2.new(0.96, 0, 0, 42)
-            BtnElm.BackgroundColor3 = SecColor
-            BtnElm.Text = "   " .. text
-            BtnElm.TextColor3 = TextColor
-            BtnElm.Font = Enum.Font.GothamBold
-            BtnElm.TextSize = 13
-            BtnElm.TextXAlignment = Enum.TextXAlignment.Left
-            Instance.new("UICorner", BtnElm).CornerRadius = UDim.new(0, 8)
+            local Btn = Instance.new("TextButton", Page)
+            Btn.Size = UDim2.new(0.96, 0, 0, 40)
+            Btn.BackgroundColor3 = SecColor
+            Btn.Text = "   " .. text .. (isToggle and (state and " : ON" or " : OFF") or "")
+            Btn.TextColor3 = TextColor
+            Btn.Font = Enum.Font.GothamBold
+            Btn.TextSize = 13
+            Btn.TextXAlignment = Enum.TextXAlignment.Left
+            Instance.new("UICorner", Btn).CornerRadius = UDim.new(0, 8)
             
-            local Stroke = Instance.new("UIStroke", BtnElm)
+            local Stroke = Instance.new("UIStroke", Btn)
             Stroke.Color = AccentColor
             Stroke.Thickness = 1.3
 
-            BtnElm.MouseButton1Click:Connect(function()
-                BtnElm.BackgroundColor3 = Color3.fromRGB(200, 35, 35)
-                callback()
-                task.wait(0.1)
-                BtnElm.BackgroundColor3 = SecColor
+            Btn.MouseButton1Click:Connect(function()
+                if isToggle then
+                    state = not state
+                    Btn.Text = "   " .. text .. (state and " : ON" or " : OFF")
+                    Btn.BackgroundColor3 = state and AccentColor or SecColor
+                end
+                callback(state or true)
             end)
         end
 
